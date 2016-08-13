@@ -6,6 +6,7 @@ window.onload = function() {
 var now = new Date();
 var events = [];
 var eventNames = [];
+var eventAMPM = [];
 
 function pmConverter(s) {
 	if (s === "PM") {
@@ -23,14 +24,36 @@ function editEntries(li) {
   var index = eventNames.indexOf(li.innerText);	
   document.getElementById("task_name").value = eventNames[index];
   document.getElementById("hour").value = events[index].getHours();
+  document.getElementById("hour").value = pmConverter(document.getElementById("AM/PM").value);
   document.getElementById("minute").value = events[index].getMinutes();
+  document.getElementById("AM/PM").value = eventAMPM[index];
   
   
   document.getElementById("add_button").value = "Modify";
   document.getElementById("add_button").onclick = function() {
-     events[index].setHour(pmConverter(document.getElementById("AM/PM").value));
+     events[index].setHours(pmConverter(document.getElementById("AM/PM").value));
      events[index].setMinutes(document.getElementById("minute").value);
-     eventNames[index] = document.getElementById("task_name").value; 
+     eventNames[index] = document.getElementById("task_name").value;  
+     eventAMPM[index] = document.getElementById("AM/PM").value;
+     
+     document.getElementById("form").reset();	
+     document.getElementById("add_button").value = "Add";
+     document.getElementById("add_button").onclick = function() {
+     	loop();
+     } 
+     
+     setInterval(function() {
+   	 for(var i = 0; i < events.length; i++) {
+      if(now.getHours() === events[i].getHours() && now.getMinutes() === events[i].getMinutes()) {
+      	document.getElementById(i.toString()).innerHTML = "Task Completed";
+        events.splice(i, 1);
+        eventNames.splice(i,1);
+      }
+      else {
+      	now = new Date();
+      } }
+     }, 1000);
+   
  } 
 } 
 
@@ -41,6 +64,7 @@ function loop() {
                        document.getElementById('minute').value)
    events.push(then);
    eventNames.push(document.getElementById("task_name").value);
+   eventAMPM.push(document.getElementById("AM/PM").value)
    
    var ul = document.getElementById("add");
    var li = document.createElement("li");
