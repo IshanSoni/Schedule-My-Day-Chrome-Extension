@@ -9,23 +9,26 @@
         overflow: hidden;
        }		
 
-		
+	   li {
+	    display: block;
+	   }	
 	</style>
-	<script src="popup1.js"></script>
+	<script src="popup.js"></script>
 </head>
 
 <body>
 	<h3 id="a">Schedule My Day</h3>
 	<h3 id="b">test</h3>
 	<ul id ="add">
-		
+
 	</ul>
-	<form>
+	<form id="form">
+		<input id="task_name" type="text"/>
 		<input id="hour" type="number"/>
 		<input id="minute" type="number"/>
 		<input id="AM/PM" type="text" />
 		
 	</form>
-	<input type="submit" onclick="loop()"/>
+	<input id="add_button" type="submit" onclick="loop()" value="Add"/>
 	
 </body>
