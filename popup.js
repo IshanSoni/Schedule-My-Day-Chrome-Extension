@@ -1,7 +1,25 @@
 
 window.onload = function() {
    
-};
+}; 
+
+document.addEventListener('DOMContentLoaded', function () {
+  if (!Notification) {
+    alert('Desktop notifications not available in your browser. Try Chromium.'); 
+    return;
+  }
+
+  if (Notification.permission !== "granted")
+    Notification.requestPermission();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var link = document.getElementById('add_button');
+    // onClick's logic below:
+    link.addEventListener('click', function() {
+        loop();
+    });
+});
 
 var now = new Date();
 var events = [];
@@ -40,7 +58,7 @@ function editEntries(li) {
      document.getElementById("add_button").value = "Add";
      document.getElementById("add_button").onclick = function() {
      	loop();
-     } 
+     }; 
      
      setInterval(function() {
    	 for(var i = 0; i < events.length; i++) {
@@ -54,10 +72,11 @@ function editEntries(li) {
       } }
      }, 1000);
    
- } 
+ }; 
 } 
 
 function loop() {
+	
    var then = new Date(now.getYear(), now.getMonth(), 
                        now.getDate(), 
                        pmConverter(document.getElementById("AM/PM").value), 
@@ -81,6 +100,16 @@ function loop() {
    	for(var i = 0; i < events.length; i++) {
       if(now.getHours() === events[i].getHours() && now.getMinutes() === events[i].getMinutes()) {
       	document.getElementById(i.toString()).innerHTML = "Task Completed";
+      	
+      if (Notification.permission !== "granted")
+        Notification.requestPermission();
+      else {
+        var notification = new Notification('Notification title', {
+           //icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+           body: eventNames[i],
+             }) 
+         }
+      	
         events.splice(i, 1);
         eventNames.splice(i,1);
       }
