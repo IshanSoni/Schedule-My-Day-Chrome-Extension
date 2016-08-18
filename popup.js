@@ -3,11 +3,19 @@ var events = [];
 var eventNames = [];
 var eventAMPM = [];
 
-/*window.onload = function() {
-	
-	events = JSON.parse(localStorage.getItem("events"));
+document.addEventListener('DOMContentLoaded', function() {
+    
+   //localStorage.clear();
+    
+   if(localStorage.length !== 0) { 
 	eventNames = JSON.parse(localStorage.getItem("eventNames"));
 	eventAMPM = JSON.parse(localStorage.getItem("eventAMPM")); 
+	
+	for(var j = 0; j < eventNames.length; j++) {
+    	events.push(new Date());
+    	events[j].setTime(localStorage[j]);
+    } 
+	
 	
 	for(var i = 0; i < eventNames.length; i++) {
 		var ul = document.getElementById("add");
@@ -18,7 +26,12 @@ var eventAMPM = [];
         li.onclick = function() {
    	       editEntries(this);
         }
-	} 
+	} } 
+});  
+
+/*window.onload = function() { //redo events storage
+	
+	
 	
 	setInterval(function() {
    	for(var i = 0; i < events.length; i++) {
@@ -30,19 +43,19 @@ var eventAMPM = [];
       else {
         var notification = new Notification('Notification title', {
            //icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-           body: eventNames[i],
-             }) 
+           body: eventNames[i]
+             }); 
          }
       	
         events.splice(i, 1);
         eventNames.splice(i,1);
       }
       else {
-      	now = now.now();
+      	now = new Date();
       } }
    }, 1000); 
    
-}; */
+} */
 
 document.addEventListener('DOMContentLoaded', function () {
   if (!Notification) {
@@ -52,15 +65,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (Notification.permission !== "granted")
     Notification.requestPermission();
-});
+}); 
 
 document.addEventListener('DOMContentLoaded', function() {
-    var link = document.getElementById('add_button');
-    // onClick's logic below:
-    link.addEventListener('click', function() {
-        loop();
-    });
-});
+    document.getElementById("add_button").onclick = function() {
+     	loop();
+    }
+}); 
 
 function pmConverter(s) {
 	if (s === "PM") {
@@ -78,7 +89,7 @@ function pmConverter(s) {
 }
 
 function editEntries(li) {
-  var index = eventNames.indexOf(li.innerText)-1;	
+  var index = eventNames.indexOf(li.innerText);	
   document.getElementById("task_name").value = eventNames[index];
   document.getElementById("hour").value = events[index].getHours();
   document.getElementById("hour").value = pmConverter(document.getElementById("AM/PM").value);
@@ -97,7 +108,7 @@ function editEntries(li) {
      document.getElementById("add_button").value = "Add";
      document.getElementById("add_button").onclick = function() {
      	loop();
-     }; 
+    }
      
      setInterval(function() {
    	 for(var i = 0; i < events.length; i++) {
@@ -109,15 +120,15 @@ function editEntries(li) {
         else {
            var notification = new Notification('Notification title', {
            //icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-           body: eventNames[i],
-             }) 
+           body: eventNames[i]
+             }); 
          }
       	
         events.splice(i, 1);
         eventNames.splice(i,1);
       }
       else {
-      	now = now.now();
+      	now = new Date();
       } }
      }, 1000);
    
@@ -143,7 +154,10 @@ function loop() {
    	  editEntries(this);
    }
    
-   localStorage.setItem("events", JSON.stringify(events));
+   for(var j = 0; j < events.length; j++) {
+    	localStorage[j.toString()] = events[j].getTime();
+   } 
+   
    localStorage.setItem("eventNames", JSON.stringify(eventNames));
    localStorage.setItem("eventAMPM", JSON.stringify(eventAMPM));
    
@@ -159,15 +173,15 @@ function loop() {
       else {
         var notification = new Notification('Notification title', {
            //icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-           body: eventNames[i],
-             }) 
+           body: eventNames[i]
+           });
          }
       	
         events.splice(i, 1);
         eventNames.splice(i,1);
       }
       else {
-      	now = now.now();
+      	now = new Date();
       } }
    }, 1000);
 
