@@ -26,7 +26,31 @@ document.addEventListener('DOMContentLoaded', function() {
         li.onclick = function() {
    	       editEntries(this);
         }
-	} } 
+	} 
+	
+	setInterval(function() {
+   	for(var i = 0; i < events.length; i++) {
+      if(now.getHours() === events[i].getHours() && now.getMinutes() === events[i].getMinutes()) {
+      	document.getElementById(i.toString()).innerHTML = "Task Completed";
+      	
+      if (Notification.permission !== "granted")
+        Notification.requestPermission();
+      else {
+        var notification = new Notification('Notification title', {
+           //icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+           body: eventNames[i]
+           });
+         }
+      	
+        events.splice(i, 1);
+        eventNames.splice(i,1);
+      }
+      else {
+      	now = new Date();
+      } }
+    }, 1000);
+	
+	} 
 });  
 
 /*window.onload = function() { //redo events storage
@@ -76,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function pmConverter(s) {
 	if (s === "PM") {
 		if(document.getElementById("hour").value !== "12") {
-		     return +document.getElementById("hour").value + +12;
+		     return (+document.getElementById("hour").value + +12)%24;
 	}
 		else return 12;
 	}
@@ -104,6 +128,13 @@ function editEntries(li) {
      eventNames[index] = document.getElementById("task_name").value;  
      eventAMPM[index] = document.getElementById("AM/PM").value;
      
+     for(var j = 0; j < events.length; j++) {
+    	localStorage[j.toString()] = events[j].getTime();
+     } 
+   
+     localStorage.setItem("eventNames", JSON.stringify(eventNames));
+     localStorage.setItem("eventAMPM", JSON.stringify(eventAMPM));
+      
      document.getElementById("form").reset();	
      document.getElementById("add_button").value = "Add";
      document.getElementById("add_button").onclick = function() {
