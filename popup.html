@@ -1,35 +1,104 @@
 <!DOCTYPE HTML>
 
 <head>
+	<script src="jquery-3.1.0.js"></script>
+	<script src="popup.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans+Condensed:300|Righteous" rel="stylesheet">
 	<title>Schedule My Day</title>
 	<style>
        body {
        	width: 200px;
         height: 200px;
         overflow: hidden;
+        background-color: #ffffe6;
        }		
+       
+       #heading {
+       	text-align: center;
+       	font-family: "Righteous", cursive;
+       	font-size: 20px;
+       }
 
 	   li {
+	   	font-family: "Open Sans Condensed", sans-serif;
+	   	font-size: 20px;
 	    display: block;
 	   }	
+	   
+	   #add_button {
+	   	text-align: center;
+	   	width:50px;
+	   	margin-top: 10px;
+	   	margin-left: 70px;
+	   	margin-bottom: 10px;
+	   	background: rgba(0,0,0,0);
+	   }
+	   
+	   #time input {
+	   	width:38px;
+	   	display: inline-block;
+	   	margin-top: 10px;
+	   	background: rgba(0,0,0,0);
+	   }
+	   
+	   .time_text {
+	   	display: inline-block;
+	   	padding-right: 5px;
+	   	padding-left: 7px;
+	   }
+	   
+	   #task_name {
+	   	margin-left: 6px;
+	   }
+	   
+	   #task_text input{
+	   	display: inline-block;
+	   	width: 135px;
+	   	background: rgba(0,0,0,0);
+	   }
+	   
+	   #semi-colon {
+	   	display: inline-block;
+	   }
+	   
+	   select{
+	   	background: rgba(0,0,0,0);
+	   }
+	   
+	   .hide {
+	   	display: none;
+	   }
+	   
+	   .show {
+	   	display: block;
+	   }
+	   
 	</style>
-	<script src="jquery-3.1.0.js"></script>
-	<script src="popup.js"></script>
 </head>
 
 <body>
-	<h3 id="a">Schedule My Day</h3>
-	<h3 id="b">test</h3>
+	<h3 id="heading">Schedule My Day</h3>
 	<ul id ="add">
 
 	</ul>
-	<form id="form">
-		<input id="task_name" type="text"/>
-		<input id="hour" type="number"/>
-		<input id="minute" type="number"/>
-		<input id="AM/PM" type="text" />
+	<form id="form" class="hide">
+		<div id="task_text">Name :  
+		<input id="task_name" type="text" placeholder="Event Name"/>
+		</div>
+		<div id="time">
+			<div class="time_text">Time : </div>
+		<input id="hour" type="number" placeholder="hh"/>
+		<div id="semi-colon">:</div>
+		<input id="minute" type="number" placeholder="mm"/>
+		<select id="AM/PM" value="AM"/>
+		 <option value="AM">AM</option>
+		 <option value="PM">PM</option>
+		</select>
+		</div>
 		
 	</form>
-	<input id="add_button" type="submit" value="Add"/>
+	<div class="button_wrapper">
+	<input id="add_button" type="submit" value="+ Add" class="button"/>
+	</div>
 	
 </body>

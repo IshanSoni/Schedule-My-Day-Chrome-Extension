@@ -5,7 +5,7 @@ var eventAMPM = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     
-   //localStorage.clear();
+   //localStorage.clear(); 
     
    if(localStorage.length !== 0) { 
 	eventNames = JSON.parse(localStorage.getItem("eventNames"));
@@ -53,34 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	} 
 });  
 
-/*window.onload = function() { //redo events storage
-	
-	
-	
-	setInterval(function() {
-   	for(var i = 0; i < events.length; i++) {
-      if(now.getHours() === events[i].getHours() && now.getMinutes() === events[i].getMinutes()) {
-      	document.getElementById(i.toString()).innerHTML = "Task Completed";
-      	
-      if (Notification.permission !== "granted")
-        Notification.requestPermission();
-      else {
-        var notification = new Notification('Notification title', {
-           //icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-           body: eventNames[i]
-             }); 
-         }
-      	
-        events.splice(i, 1);
-        eventNames.splice(i,1);
-      }
-      else {
-      	now = new Date();
-      } }
-   }, 1000); 
-   
-} */
-
 document.addEventListener('DOMContentLoaded', function () {
   if (!Notification) {
     alert('Desktop notifications not available in your browser. Try Chromium.'); 
@@ -93,7 +65,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("add_button").onclick = function() {
+     	document.getElementById("add_button").onclick = function() {
+        $("#form").attr('class', 'hide');
      	loop();
+      }
+      $("#form").attr('class', 'show');
     }
 }); 
 
@@ -136,7 +112,7 @@ function editEntries(li) {
      localStorage.setItem("eventAMPM", JSON.stringify(eventAMPM));
       
      document.getElementById("form").reset();	
-     document.getElementById("add_button").value = "Add";
+     document.getElementById("add_button").value = "+ Add";
      document.getElementById("add_button").onclick = function() {
      	loop();
     }
@@ -166,7 +142,7 @@ function editEntries(li) {
  }; 
 } 
 
-function loop() {
+function loop() {	
 	
    var then = new Date(now.getYear(), now.getMonth(), 
                        now.getDate(), 
@@ -191,6 +167,14 @@ function loop() {
    
    localStorage.setItem("eventNames", JSON.stringify(eventNames));
    localStorage.setItem("eventAMPM", JSON.stringify(eventAMPM));
+   
+   document.getElementById("add_button").onclick = function() {
+     	document.getElementById("add_button").onclick = function() {
+        $("#form").attr('class', 'hide');
+     	loop();
+      }
+      $("#form").attr('class', 'show');
+   } 
    
    document.getElementById("form").reset();	
   
