@@ -110,6 +110,7 @@ function pmConverter(s) {
 }
 
 function editEntries(li) {
+	
   var index = eventNames.indexOf(li.innerText);	
   document.getElementById("task_name").value = eventNames[index];
   document.getElementById("hour").value = events[index].getHours();
@@ -117,6 +118,25 @@ function editEntries(li) {
   document.getElementById("minute").value = events[index].getMinutes();
   document.getElementById("AM/PM").value = eventAMPM[index];
   
+  document.getElementById("remove_button").value = "Delete";	
+  document.getElementById("remove_button").onclick = function() {
+  	events.splice(index, 1);
+    eventNames.splice(index, 1);
+    document.getElementById("form").reset();
+    document.getElementById("add_button").value = "+ Add";		
+    $("#form").attr('class', 'hide');
+    $("#remove_button").attr('class', 'hide');
+    document.getElementById("add_button").onclick = function() {
+     document.getElementById("add_button").onclick = function() {
+       $("#form").attr('class', 'hide');
+       $("#remove_button").attr('class', 'hide');
+       loop();
+      }
+     $("#form").attr('class', 'show');
+     $("#remove_button").attr('class', 'inline');
+    }
+    
+  }
   
   document.getElementById("add_button").value = "Modify";
   document.getElementById("add_button").onclick = function() {
