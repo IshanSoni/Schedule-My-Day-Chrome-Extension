@@ -61,6 +61,14 @@
 	   	display: inline-block;
 	   }
 	   
+	   .inline {
+	   	display: inline-block;
+	   }
+	   
+	   #remove_button {
+	   	background: rgba(0,0,0,0);
+	   }
+	   
 	   select{
 	   	background: rgba(0,0,0,0);
 	   }
@@ -88,17 +96,17 @@
 		<div id="time">
 			<div class="time_text">Time : </div>
 		<input id="hour" type="number" placeholder="hh"/>
-		<div id="semi-colon">:</div>
+		<div class="inline">:</div>
 		<input id="minute" type="number" placeholder="mm"/>
 		<select id="AM/PM" value="AM"/>
 		 <option value="AM">AM</option>
 		 <option value="PM">PM</option>
 		</select>
-		</div>
-		
+		</div>	
 	</form>
-	<div class="button_wrapper">
+	<div>
 	<input id="add_button" type="submit" value="+ Add" class="button"/>
+	<input id="remove_button" type="submit" value="X" class="hide">
 	</div>
 	
 </body>

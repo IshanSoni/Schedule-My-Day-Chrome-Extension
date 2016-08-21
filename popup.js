@@ -4,6 +4,34 @@ var eventNames = [];
 var eventAMPM = [];
 
 document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById("add_button").onclick = function() {
+     	document.getElementById("add_button").onclick = function() {
+        $("#form").attr('class', 'hide');
+        $("#remove_button").attr('class', 'hide');
+     	loop();
+      }
+      $("#form").attr('class', 'show');
+      $("#remove_button").attr('class', 'inline');
+    }
+    
+    document.getElementById("remove_button").onclick = function() {
+      document.getElementById("form").reset();		
+      $("#form").attr('class', 'hide');
+      $("#remove_button").attr('class', 'hide');
+      document.getElementById("add_button").onclick = function() {
+     	document.getElementById("add_button").onclick = function() {
+        $("#form").attr('class', 'hide');
+        $("#remove_button").attr('class', 'hide');
+     	loop();
+      }
+      $("#form").attr('class', 'show');
+      $("#remove_button").attr('class', 'inline');
+    }
+    }
+    
+}); 
+
+document.addEventListener('DOMContentLoaded', function() {
     
    //localStorage.clear(); 
     
@@ -24,7 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
         li.appendChild(document.createTextNode(eventNames[i]));
         ul.appendChild(li);
         li.onclick = function() {
-   	       editEntries(this);
+          $("#form").attr('class', 'show');
+          $("#remove_button").attr('class', 'inline');
+          editEntries(this);
         }
 	} 
 	
@@ -63,15 +93,6 @@ document.addEventListener('DOMContentLoaded', function () {
     Notification.requestPermission();
 }); 
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById("add_button").onclick = function() {
-     	document.getElementById("add_button").onclick = function() {
-        $("#form").attr('class', 'hide');
-     	loop();
-      }
-      $("#form").attr('class', 'show');
-    }
-}); 
 
 function pmConverter(s) {
 	if (s === "PM") {
@@ -110,11 +131,19 @@ function editEntries(li) {
    
      localStorage.setItem("eventNames", JSON.stringify(eventNames));
      localStorage.setItem("eventAMPM", JSON.stringify(eventAMPM));
-      
+     
+     $("#form").attr('class', 'hide'); 
+     $("#remove_button").attr('class', 'hide');
      document.getElementById("form").reset();	
      document.getElementById("add_button").value = "+ Add";
      document.getElementById("add_button").onclick = function() {
-     	loop();
+        document.getElementById("add_button").onclick = function() {
+          $("#form").attr('class', 'hide');
+          $("#remove_button").attr('class', 'hide');
+     	  loop();
+         }
+        $("#form").attr('class', 'show');
+        $("#remove_button").attr('class', 'inline');
     }
      
      setInterval(function() {
@@ -158,7 +187,8 @@ function loop() {
    li.appendChild(document.createTextNode(document.getElementById("task_name").value));
    ul.appendChild(li);
    li.onclick = function() {
-   	  editEntries(this);
+   	  $("#form").attr('class', 'show');
+      editEntries(this);
    }
    
    for(var j = 0; j < events.length; j++) {
@@ -171,9 +201,11 @@ function loop() {
    document.getElementById("add_button").onclick = function() {
      	document.getElementById("add_button").onclick = function() {
         $("#form").attr('class', 'hide');
+        $("#remove_button").attr('class', 'hide');
      	loop();
       }
       $("#form").attr('class', 'show');
+      $("#remove_button").attr('class', 'inline');
    } 
    
    document.getElementById("form").reset();	
