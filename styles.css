@@ -1,0 +1,107 @@
+       body {
+       	width: 200px;
+        height: 100px;
+        overflow: hidden;
+       background-color: #F3FAB6;
+       }	
+       
+       #strip {
+       	background-color: #A8CD1B;
+       	margin: 0px -10px 0px -10px;
+       	padding: 0px 0px 10px 0px;
+       	box-shadow: 1px 0px 1px #005A31;
+       }	
+       
+       #header {
+       	background-color: #CBE32D;
+       	padding: 5px 5px;
+       	margin: -10px 0px 5px 0px;	
+       	box-shadow: 1px 0px 1px #005A31;
+       }
+       
+       #heading {
+       	text-align: center;
+       	font-family: "Righteous", cursive;
+       	font-size: 22px;
+       	color: #005A31;
+       	text-shadow: 0px 0px 0px #000;
+       }
+
+	   li {
+	   	font-family: "Open Sans Condensed", sans-serif;
+	   	font-size: 20px;
+	    display: block;
+	    color: #005A31;
+	    text-shadow: 0px 0px 0px #000;
+	   }
+	   
+	   li:hover{
+         background-color: #CBE32D;
+         padding: 0px 0px 0px 10px;
+         margin-right: 40px;
+         box-shadow: 0px 0px 1px #005A31;
+       }	
+	   
+	   #add_button {
+	   	text-align: center;
+	   	width:60px;
+	   	margin-top: 10px;
+	   	margin-left: 70px;
+	   	margin-bottom: 10px;
+	   	background: #CBE32D;
+	   	color: #005A31;
+	   	font-family: "Righteous", cursive;
+	   	text-shadow: 0px 0px 0px #000;
+	   }
+	   
+	   #time input {
+	   	width:38px;
+	   	display: inline-block;
+	   	margin-top: 10px;
+	   	background: rgba(0,0,0,0);
+	   }
+	   
+	   .time_text {
+	   	display: inline-block;
+	   	padding-right: 5px;
+	   	padding-left: 7px;
+	   }
+	   
+	   #task_name {
+	   	margin-left: 6px;
+	   }
+	   
+	   #task_text input{
+	   	display: inline-block;
+	   	width: 135px;
+	   	background: rgba(0,0,0,0);
+	   }
+	   
+	   #semi-colon {
+	   	display: inline-block;
+	   }
+	   
+	   .inline {
+	   	display: inline-block;
+	   }
+	   
+	   #remove_button {
+	   	background: #CBE32D;
+	   	color: #005A31;
+	   	font-family: "Righteous", cursive;
+	   	text-shadow: 0px 0px 0px #000;
+	   }
+	   
+	   select{
+	   	background: rgba(0,0,0,0);
+	   }
+	   
+	   .hide {
+	   	display: none;
+	   }
+	   
+	   .show {
+	   	display: block;
+	   }
+	   
+	
