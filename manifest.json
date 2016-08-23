@@ -1,16 +1,22 @@
 {
   "manifest_version": 2,
 
-  "name": "Getting started example",
-  "description": "This extension shows a Google Image search result for the current page",
+  "name": "Schedule My Day",
+  "description": "This extension lets users add events for the day, which they are later reminded of by desktop notifications",
   "version": "1.0",
 
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html",
-"default_title": "Click here"
+"default_title": "Click to schedule your day"
   },
+  
+  "background":{
+    "scripts": ["background.js"]  
+  }, 
+  
   "permissions": [
+    "background",
     "notifications",
     "activeTab",
     "https://ajax.googleapis.com/"

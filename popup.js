@@ -3,6 +3,7 @@ var events = [];
 var eventNames = [];
 var eventAMPM = [];
 
+//sets onclick events for add button, X button, and modify button
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("add_button").onclick = function() {
      	document.getElementById("add_button").onclick = function() {
@@ -29,8 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     }
     
+    addEventListener("unload", function (event) {
+      alert("yes");
+    }, true);
+    
 }); 
 
+//gets events from localstorage and sets them as lists on popup
 document.addEventListener('DOMContentLoaded', function() {
     
    //localStorage.clear(); 
@@ -58,34 +64,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 	} 
 	
-	setInterval(function() {
-   	for(var i = 0; i < events.length; i++) {
-      if(now.getHours() === events[i].getHours() && now.getMinutes() === events[i].getMinutes()) {
-      	document.getElementById(i.toString()).innerHTML = "Task Completed";
-      	
-      if (Notification.permission !== "granted")
-        Notification.requestPermission();
-      else {
-        var notification = new Notification('Notification title', {
-           //icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-           body: eventNames[i]
-           });
-         }
-      	
-        events.splice(i, 1);
-        eventNames.splice(i,1);
-      }
-      else {
-      	now = new Date();
-      } }
-    }, 1000);
-	
 	} 
 });  
 
+//checks if notification is available on the browser
 document.addEventListener('DOMContentLoaded', function () {
   if (!Notification) {
-    alert('Desktop notifications not available in your browser. Try Chromium.'); 
+    alert('Desktop notifications not available in this version. Upgrade Chrome.'); 
     return;
   }
 
@@ -93,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
     Notification.requestPermission();
 }); 
 
-
+//function to convert 24 hour time into 12 hour
 function pmConverter(s) {
 	if (s === "PM") {
 		if(document.getElementById("hour").value !== "12") {
@@ -109,6 +94,7 @@ function pmConverter(s) {
 	} 
 }
 
+//this function handles modifications when user modifies an entry
 function editEntries(li) {
 	
   var index = eventNames.indexOf(li.innerText);	
@@ -120,8 +106,20 @@ function editEntries(li) {
   
   document.getElementById("remove_button").value = "Delete";	
   document.getElementById("remove_button").onclick = function() {
+  	
+  	var myList = document.getElementById(index.toString());
+    myList.innerHTML = '';
+  	
   	events.splice(index, 1);
     eventNames.splice(index, 1);
+    
+    for(var j = 0; j < events.length; j++) {
+    	localStorage[j.toString()] = events[j].getTime();
+    } 
+   
+    localStorage.setItem("eventNames", JSON.stringify(eventNames));
+    localStorage.setItem("eventAMPM", JSON.stringify(eventAMPM));
+    
     document.getElementById("form").reset();
     document.getElementById("add_button").value = "+ Add";		
     $("#form").attr('class', 'hide');
@@ -166,31 +164,10 @@ function editEntries(li) {
         $("#remove_button").attr('class', 'inline');
     }
      
-     setInterval(function() {
-   	 for(var i = 0; i < events.length; i++) {
-      if(now.getHours() === events[i].getHours() && now.getMinutes() === events[i].getMinutes()) {
-      	document.getElementById(i.toString()).innerHTML = "Task Completed";
-      	
-      	if (Notification.permission !== "granted")
-           Notification.requestPermission();
-        else {
-           var notification = new Notification('Notification title', {
-           //icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-           body: eventNames[i]
-             }); 
-         }
-      	
-        events.splice(i, 1);
-        eventNames.splice(i,1);
-      }
-      else {
-      	now = new Date();
-      } }
-     }, 1000);
-   
  }; 
 } 
 
+//adds an event to the list
 function loop() {	
 	
    var then = new Date(now.getYear(), now.getMonth(), 
@@ -208,6 +185,7 @@ function loop() {
    ul.appendChild(li);
    li.onclick = function() {
    	  $("#form").attr('class', 'show');
+   	  $("#remove_button").attr('class', 'inline');
       editEntries(this);
    }
    
@@ -230,26 +208,4 @@ function loop() {
    
    document.getElementById("form").reset();	
   
-   setInterval(function() {
-   	for(var i = 0; i < events.length; i++) {
-      if(now.getHours() === events[i].getHours() && now.getMinutes() === events[i].getMinutes()) {
-      	document.getElementById(i.toString()).innerHTML = "Task Completed";
-      	
-      if (Notification.permission !== "granted")
-        Notification.requestPermission();
-      else {
-        var notification = new Notification('Notification title', {
-           //icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-           body: eventNames[i]
-           });
-         }
-      	
-        events.splice(i, 1);
-        eventNames.splice(i,1);
-      }
-      else {
-      	now = new Date();
-      } }
-   }, 1000);
-
 }
